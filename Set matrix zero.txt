@@ -1,0 +1,87 @@
+bruteforce approach--
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        // brute force
+        boolean[][] visitedmatrix=new boolean[matrix.length][matrix[0].length];
+       
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(matrix[i][j]!=0){
+                    visitedmatrix[i][j]=false;
+                }
+                else{
+                    visitedmatrix[i][j]=true;
+                }
+            }
+        }
+            
+        
+
+        for(int i=0;i<matrix.length;i++){
+             for(int j=0;j<matrix[i].length;j++){
+                     if(matrix[i][j]==0 && visitedmatrix[i][j]==true){
+                         int tempj=j;
+                         int tempi=i;
+                         
+                         while(tempj>=0){
+                             matrix[i][tempj]=0;
+                             
+                             tempj--;
+
+                         }
+                         tempj=j;
+                         while(tempj<matrix[i].length){
+                             matrix[i][tempj]=0;
+                             
+                             tempj++;
+
+                         }
+                         
+                         while(tempi>=0){
+                             matrix[tempi][j]=0;
+                             
+                             tempi--;
+                         }
+                         tempi=i;
+                         while(tempi<matrix.length){
+                             matrix[tempi][j]=0;
+                             
+                             tempi++;
+                         }
+
+                     }
+             }
+        }
+    }
+}
+
+optimized approach 
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        // optimized sol
+        int[] row=new int[matrix.length];
+        int[] col=new int[matrix[0].length];
+        Arrays.fill(row,-1);
+        Arrays.fill(col,-1);
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[i].length;j++){
+                if(matrix[i][j]==0){
+                    row[i]=0;
+                    col[j]=0;
+                }
+            }
+        }
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(row[i]==0 || col[j]==0){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+
+
+    }
+}
+
